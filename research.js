@@ -85,13 +85,29 @@
     const t=document.createElement('div');t.className='thr';t.textContent=`threshold τ = ${thr} · k = ${k} of n = ${n} · alert fires at t${fired+1}; the isolated spike at t3 never does`;box.appendChild(t);
   })();
 
-  /* ---------- phone mini traces + elapsed ---------- */
+  /* ---------- illustrative phone traces; clock only runs while visible ---------- */
   (function(){
     const mk=(id,f)=>{const e=document.getElementById(id);if(!e)return;const pts=[];for(let i=0;i<=150;i++){const x=i*2;pts.push(x+','+(13-f(i/150)).toFixed(1));}e.setAttribute('points',pts.join(' '));};
     mk('miniEeg',u=>u<0.45?3*Math.sin(u*60):9*Math.sin(u*45));
     mk('miniEcg',u=>{const b=u<0.45?0.09:0.05;const ph=(u%b)/b;return ph<0.08?10:(ph<0.14?-4:0.5*Math.sin(u*30));});
     mk('miniEmg',u=>u<0.45?(Math.sin(u*300)*1.2):(Math.sin(u*997)*8*Math.sign(Math.sin(u*180))));
-    const e=document.getElementById('elapsed'); if(!e||reduce) return; let s=12; setInterval(()=>{s++;e.textContent='00:'+String(s%60).padStart(2,'0');},1000);
+    const e=document.getElementById('elapsed'); if(!e) return;
+    const motion=matchMedia('(prefers-reduced-motion: reduce)');
+    let seconds=12, timer=0, visible=!('IntersectionObserver' in window);
+    const sync=()=>{
+      clearInterval(timer); timer=0;
+      if(!visible||document.hidden||motion.matches) return;
+      timer=setInterval(()=>{
+        seconds++;
+        e.textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');
+      },1000);
+    };
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();},{threshold:.1}).observe(e.closest('.phone')||e);
+    }
+    document.addEventListener('visibilitychange',sync);
+    motion.addEventListener('change',sync);
+    sync();
   })();
 
   /* ---------- hero signal strip ---------- */

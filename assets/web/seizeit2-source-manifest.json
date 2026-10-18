@@ -1,0 +1,38 @@
+{
+  "verified": "2026-10-18",
+  "generated": false,
+  "assets": [
+    {
+      "file": "byteflies-official-neck-setup.png",
+      "type": "manufacturer photograph",
+      "source": "https://www.byteflies.com/resource-centre/what-is-byteflies-building-for-people-with-epilepsy-and-why",
+      "download": "https://cdn.prod.website-files.com/67224a324d72f90832de7482/67224a324d72f90832de7672_66eab4df3ac4154135080538_64d4c578daf2bc009ef24f23_1%2An5PXmL_i_J3nX3H2sKxQzA.png",
+      "changes": "None. Original file copied intact. Responsive display.",
+      "rights": "No explicit open redistribution license found; confirm rights-holder permission for external republication.",
+      "publication": "Reference only. The public site links to the manufacturer page and does not redistribute this photograph.",
+      "scope": "Actual product photograph with bilateral EEG patches; not asserted to be a SeizeIT2 participant photograph."
+    },
+    {
+      "file": "seizeit2-swinnen-2026-fig1.png",
+      "type": "published schematic, not a photograph",
+      "authors": "Swinnen L. et al.",
+      "figure": "Figure 1, complete A/B panels",
+      "source": "https://doi.org/10.1002/epi4.70260",
+      "pdf": "https://ftp.esat.kuleuven.be/pub/stadius/ida/reports/26-77.pdf",
+      "license": "CC BY-NC-ND 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "changes": "Original embedded image extracted unmodified from PDF page 3 (xref 68), 993 x 1383. No crop, redraw, overlays or image generation."
+    }
+  ],
+  "configuration_sources": [
+    "https://doi.org/10.1038/s41597-025-05580-x",
+    "https://github.com/OpenNeuroDatasets/ds005873"
+  ],
+  "corrections": [
+    "Two Sensor Dots, not three: EEG unit on upper back/neck; shared ECG/EMG unit on left chest.",
+    "Electrodes on left deltoid connect to the chest unit; no separate arm unit.",
+    "Native biopotential acquisition 250 Hz; movement 25 Hz. Do not conflate with 256 Hz processing.",
+    "Manufacturer bilateral EEG patches are distinct from focal-onset electrode configurations."
+  ],
+  "scope_note": "This documents SeizeIT2 hardware, not the separate ICTRA Arduino prototype."
+}

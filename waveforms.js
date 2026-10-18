@@ -10,24 +10,56 @@
   const paths = names.map(name => document.getElementById(`wave-${name}`));
   const count = 960, sampleRate = 160;
   const buffers = names.map(() => new Float32Array(count));
-  let head = 0, time = 0, beatPhase = 0, seed = 7;
+  let head = 0, time = 0, seed = 7;
   let paused = reduced.matches, visible = false, frame = 0, last = 0, carried = 0;
   const random = () => { seed = seed * 16807 % 2147483647; return seed / 2147483647 - 0.5; };
+  // Background EEG: a 1/f-weighted mixture of non-harmonic rhythms with drifting phase,
+  // alpha (8-12 Hz) that waxes and wanes, and a little sensor noise. Seizure: rhythmic
+  // spike-and-wave at ~3-4 Hz that builds in amplitude and speeds up slightly.
+  const eegBands = [1.3, 2.7, 4.4, 6.1, 7.4, 9.8, 13.2, 17.9, 22.6].map((f, i) => ({f, a: 0.7 / Math.pow(f, 0.6), ph: i * 1.7}));
+  let rr = 60 / 72, beatT = 0, alphaEnv = 0, alphaTarget = 0.4, drift = 0, emgBurst = 0;
+  function gauss(x, w) { return Math.exp(-(x * x) / (2 * w * w)); }
   function sample() {
     time += 1 / sampleRate;
     const cycle = time % 22;
     const ramp = cycle > 11 && cycle < 19 ? Math.min(1, (cycle - 11) / 2.5) : 0;
-    let eeg = .35 * Math.sin(2 * Math.PI * 10 * time) + .25 * Math.sin(2 * Math.PI * 2.1 * time) + .12 * random();
-    if (ramp) eeg = (.4 + 1.4 * ramp) * Math.sin(2 * Math.PI * 3 * time) + .3 * ramp * Math.sin(2 * Math.PI * 9 * time) + .1 * random();
-    beatPhase = (beatPhase + (72 + 58 * ramp) / 60 / sampleRate) % 1;
-    let ecg = .05 * Math.sin(2 * Math.PI * beatPhase * 2);
-    if (beatPhase < .04) ecg = -.2;
-    else if (beatPhase < .09) ecg = 1;
-    else if (beatPhase < .13) ecg = -.35;
-    else if (beatPhase > .3 && beatPhase < .45) ecg = .25 * Math.sin(Math.PI * (beatPhase - .3) / .15);
-    let emg = .12 * random();
-    if (cycle % 7 > 5.6 && cycle % 7 < 6) emg = .6 * random();
-    if (ramp) emg = (.6 + .8 * ramp) * random();
+
+    // ---- EEG ----
+    if (Math.floor(time * sampleRate) % 160 === 0) alphaTarget = 0.08 + 0.45 * (random() + 0.5);
+    alphaEnv += (alphaTarget - alphaEnv) * 0.004;
+    drift += (random() * 0.02 - drift * 0.002);
+    let eeg = drift;
+    for (const b of eegBands) { b.ph += random() * 0.002; eeg += b.a * Math.sin(2 * Math.PI * b.f * time + b.ph); }
+    eeg += alphaEnv * Math.sin(2 * Math.PI * 10.2 * time) * (0.6 + 0.4 * Math.sin(2 * Math.PI * 0.9 * time));
+    eeg += 0.09 * random();
+    if (ramp) {
+      const f = 3.0 + 1.2 * ramp;                      // spike-and-wave frequency
+      const ph = (time * f) % 1;                       // 0..1 within one complex
+      const spike = 1.8 * gauss(ph - 0.08, 0.035);     // sharp spike
+      const wave = -0.9 * Math.sin(Math.PI * Math.max(0, Math.min(1, (ph - 0.14) / 0.7)));  // slow wave
+      eeg = (0.35 + 0.65 * ramp) * (spike + wave) + 0.3 * (1 - ramp) * eeg + 0.08 * random();
+    }
+
+    // ---- ECG: P-QRS-T from Gaussians, with RR variability and baseline wander ----
+    beatT += 1 / sampleRate;
+    if (beatT >= rr) { beatT -= rr; const hr = 72 + 58 * ramp; rr = 60 / hr * (1 + 0.05 * random()); }
+    const t = beatT;
+    let ecg = 0.14 * gauss(t - 0.16, 0.025)            // P
+            - 0.12 * gauss(t - 0.235, 0.008)           // Q
+            + 1.0  * gauss(t - 0.25, 0.010)            // R
+            - 0.28 * gauss(t - 0.268, 0.009)           // S
+            + 0.32 * gauss(t - 0.48, 0.045);           // T
+    ecg += 0.03 * Math.sin(2 * Math.PI * 0.25 * time) + 0.015 * random();
+
+    // ---- EMG: quiet baseline, occasional small bursts; tonic then clonic during the event ----
+    if (random() > 0.497) emgBurst = 0.5 + random();
+    emgBurst *= 0.97;
+    let emg = (0.06 + 0.5 * emgBurst) * random();
+    if (ramp) {
+      const clonic = ramp > 0.6 ? (Math.sin(2 * Math.PI * 3.2 * time) > 0.2 ? 1 : 0.25) : 1;
+      emg = (0.5 + 1.1 * ramp) * clonic * random();
+    }
+
     buffers[0][head] = eeg;
     buffers[1][head] = ecg;
     buffers[2][head] = emg;
@@ -47,7 +79,7 @@
   }
   function loop(now) {
     frame = 0;
-    if (paused || !visible || document.hidden) return;
+    if (paused || !visible || document.hidden || document.documentElement.classList.contains('intro-active')) return;
     if (!last) last = now;
     const elapsed = now - last;
     if (elapsed >= 1000 / 30) {
@@ -63,13 +95,14 @@
     frame = 0; last = 0; carried = 0;
     button.textContent = paused ? 'Play waves' : 'Pause waves';
     draw();
-    if (!paused && visible && !document.hidden) frame = requestAnimationFrame(loop);
+    if (!paused && visible && !document.hidden && !document.documentElement.classList.contains('intro-active')) frame = requestAnimationFrame(loop);
   }
   for (let i = 0; i < count; i++) sample();
   button.disabled = false;
   button.addEventListener('click', () => { paused = !paused; sync(); });
   reduced.addEventListener('change', () => { paused = reduced.matches; sync(); });
   document.addEventListener('visibilitychange', sync);
+  document.addEventListener('ictra:introchange', sync);
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); }, {threshold: .05}).observe(panel);
   } else visible = true;

@@ -1,0 +1,18 @@
+{
+  "source": "http://127.0.0.1:8766/",
+  "source_title": "ICTRA Lab",
+  "captured_utc_interval": ["2026-10-18T06:47:00Z", "2026-10-18T06:49:10Z"],
+  "capture_method": "Browser screenshots of the running local dashboard; no UI reconstruction or AI image generation.",
+  "viewport_css_pixels": {"width": 1440, "height": 1000},
+  "timestamp_note": "The capture date is UTC. Dashboard clocks and local log timestamps are preserved verbatim; the dashboard did not declare a timezone. Its visible clock read about 23:47–23:49 and log entries were dated 2026-10-17.",
+  "scope": "Static process records and exploratory/development analyses, not live embeds, locked-test results, hardware validation or clinical evidence.",
+  "edits": "Four screenshots are rectangular browser crops of top-of-page panels; the training-jobs view is a full viewport after navigating down the Now tab. No image content, counters, curves or labels were changed.",
+  "training_was_not_modified": true,
+  "records": [
+    {"file": "lab-preparation-20261018.jpg", "tab": "1 Now", "size_pixels": [1155, 482], "sha256": "a1d9460aeeabad7ee2284217ad855c1ab7c52eedc5c972917ecbdf4e8ca9dec7", "observed": "1,163/1,163 seizure-run files; 6,894/6,894 seizure-free files; 2,072/2,072 dev runs featured; locked-test download locked."},
+    {"file": "lab-data-20261018.jpg", "tab": "2 Data", "size_pixels": [1155, 765], "sha256": "05cdf183c1a5f55b559ff046e958e0c70eed7f7e4cd67696674a26dd0f8dbb04", "observed": "96/29 patients dev/locked test; 2,072 dev runs; 2,048 with ECG+EMG files; 1,889 with movement files; three evaluation tiers described."},
+    {"file": "lab-training-jobs-20261018.jpg", "tab": "1 Now", "size_pixels": [1425, 990], "sha256": "dc72e084847cec727b59e010af9b00bdf5c21bb57fdaf0ab7fa559c911394477", "observed": "v02_full_hours: 68 done, 2 running, 100 queued. v03_threshold_stability: 110 done, 0 running, 0 queued. Log visible. Horizontal overflow of the source's v02 matrix is retained; not every column is visible."},
+    {"file": "lab-signals-20261018.jpg", "tab": "3 Signals", "selected": {"group": "FBTC", "onset_definition": "z > 3 for 3 s"}, "size_pixels": [1155, 435], "sha256": "0b87700c0455741c5ab0e3b3d87fabac17f355b79f5714661a462fac64a6f68c", "observed": "33 seizures, 28 patients; median normalized feature curves; heart-rate and EMG panels n=30; baseline -300..-60 s, IQR shaded, display clipped -10..25."},
+    {"file": "lab-ablation-v01-20261018.jpg", "tab": "4 Ablation", "selected": {"version": "v01_baseline", "model_family": "xgb"}, "size_pixels": [1155, 815], "sha256": "81209224c3b5bfe33473d33e0cf5422818a07e542a29f3216e813471d5275551", "observed": "Development only: 702 seizures, 2,288 hours, seizure-containing runs. A/B/C and single-input rules; mean-over-seeds points, seed-0 bootstrap confidence intervals."}
+  ]
+}
