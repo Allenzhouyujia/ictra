@@ -1,0 +1,87 @@
+<!doctype html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Team | ICTRA Research</title><meta name="description" content="Signal research, evaluation and the open acquisition platform."><link rel="stylesheet" href="source.css"><link rel="stylesheet" href="research-layout.css?v=20261018b"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"><link rel="stylesheet" href="ictra-theme.css?v=20261018b"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230d6c86%27/%3E%3Cpolyline points=%274,18 9,18 12,10 15,24 18,14 21,18 28,18%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%272.4%27 stroke-linejoin=%27round%27 stroke-linecap=%27round%27/%3E%3C/svg%3E"><meta name="theme-color" content="#0d6c86"><meta property="og:title" content="Team | ICTRA Research"><meta property="og:description" content="Signal research, evaluation and the open acquisition platform."><meta property="og:type" content="website"></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="site-wrap masthead"><a href="index.html" class="site-brand">ICTRA<span>Biosignal Research</span></a><a class="repo-link" href="https://github.com/AICAllenZhou/biosignal-studio" target="_blank" rel="noopener">BioSignal Studio ↗</a><button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button></div><nav id="primary-nav" class="primary-nav" aria-label="Main navigation"><div class="site-wrap"><a href="index.html">Overview</a><a href="background.html">Problem</a><a href="science.html">AI & Method</a><a href="system.html">Engineering</a><a href="evidence.html">Evidence</a><a href="safety.html">Ethics</a><a href="team.html" aria-current="page">Team</a></div></nav></header><main id="main"><div class="site-wrap page-heading"><div class="breadcrumb"><a href="index.html">ICTRA</a> / Team</div><span class="rubric-tag">WAICY rubric · Presentation &amp; Communication · 10 pts</span><h1>Team &amp; presentation</h1><p>Signal research, evaluation and the open acquisition platform.</p></div><div class="site-wrap document-layout"><aside class="contents"><nav aria-label="On this page"><p>On this page</p><a href="#team">Contributors</a><a href="#parts">Who presents what</a><a href="#contribution-scope">Acknowledgments</a></nav></aside><div class="document-content"><aside class="page-brief"><h2>Research, engineering and collaboration</h2><p>Signal research and evaluation are shared across the student team, with coaching and acquisition-platform support. Public datasets, established methods and presentation assistance are credited separately.</p><a href="team.html#contribution-scope">Contributions & acknowledgments →</a></aside><section class="research-section" id="team"><div class="wrap">
+<div class="sec-head">
+
+<h2>Contributors and responsibilities</h2>
+<p class="lead">Every member owns one signal branch or the step where they meet, and can give the one-sentence version of everyone else's.</p>
+</div>
+<div class="team">
+<div class="member"><div class="av" style="background:var(--eeg)">H</div><b>Helena</b><span>EEG branch (Model A) · montage handling · CHB-MIT and Siena loaders · website and replay demo</span></div>
+<div class="member"><div class="av" style="background:var(--ecg)">C</div><b>Carina</b><span>ECG branch (Model B) · heart-rate rule · the brain-to-heart timing study · data audit (found the flat-signal hours) · electrode placement</span></div>
+<div class="member"><div class="av" style="background:var(--emg)">T</div><b>Tiffany</b><span>EMG + motion branch (Model C) · muscle and movement rules · the muscle-to-brain study on Arbune 2020 · deltoid placement</span></div>
+<div class="member"><div class="av" style="background:var(--accent)">C</div><b>Constance</b><span>Fusion and evaluation · the ablation figure · version log · pre-registration · independent re-computation · ethics and limits</span></div>
+<div class="member"><div class="av" style="background:var(--ink-2)">A</div><b>Allen Zhou</b><span>Coach · project lead and reviewer · BioSignal Studio repository · Alexander Innovation Centre, Vancouver</span></div>
+</div>
+</div></section><section class="research-section" id="parts"><div class="wrap">
+<div class="sec-head"><h2>Who presents what</h2>
+<p class="lead">Each member owns one branch of the evidence on this site, presents it in 30 seconds, and takes the questions on it. Links go to the exhibit each person is responsible for.</p></div>
+<div class="parts-grid">
+
+<article class="part" style="--c:var(--eeg)">
+<header><span class="av" style="background:var(--eeg)">H</span><div><b>Helena</b><small>EEG branch · Model A · montage · website</small></div></header>
+<h4>What exists in this branch</h4>
+<ul>
+<li><a href="evidence.html#v01">Model A results</a>: 0.98 of convulsive seizures, 0.37 overall; the EEG-only reference every other model is compared with.</li>
+<li>The montage finding: right-sided montage looked worse (0.17 vs 0.51) until the three short-seizure patients were separated — then 0.45.</li>
+<li><a href="science.html#ai">Feature design</a>: band powers 1–25 Hz, line length, Δ against the 5-minute median.</li>
+</ul>
+<h4>30-second part</h4>
+<p>"Two electrodes behind the ear see rhythmic discharges within seconds. Alone they catch nearly every convulsive seizure but only a third of focal ones — that number is the floor the other signals have to lift."</p>
+<h4>Questions to own</h4>
+<p>Why line length? Why 1–25 Hz? What does the behind-the-ear EEG miss, and why did the right montage look worse?</p>
+<h4>Next</h4>
+<p>v04 montage-aware features; CHB-MIT and Siena loaders through the T7–P7 / T8–P8 proxy; the website replay demo.</p>
+</article>
+
+<article class="part" style="--c:var(--ecg)">
+<header><span class="av" style="background:var(--ecg)">C</span><div><b>Carina</b><small>ECG branch · Model B · the timing study</small></div></header>
+<h4>What exists in this branch</h4>
+<ul>
+<li><a href="evidence.html#expr">Exp R, Exhibit 1</a>: the heart reacts 4 s after the brain in convulsive seizures, together with it in focal ones, and in only 58 % of non-motor seizures (median rise 22 bpm).</li>
+<li><a href="evidence.html#negative">Exp P</a>: 538 seizures vs 5,350 controls — no drift in the two minutes before onset.</li>
+<li>Data audit: the flat / saturated ECG hours (8 h at a constant value in one file) that are now masked for every model.</li>
+<li>Model B vs A: +0.043 F1, not robust across model families — ECG alone adds little; its value appears inside Model C.</li>
+</ul>
+<h4>30-second part</h4>
+<p>"We measured when the heart moves relative to the brain in 695 seizures. In convulsive seizures it follows 4 seconds later; in focal ones it moves at the same time. So heart rate adds coverage, not speed — and in the two minutes before a seizure there is nothing to see."</p>
+<h4>Questions to own</h4>
+<p>Why is H3 rewritten? What is the control in Exp P? Why does rule_hr beat the models on seizures under 15 s?</p>
+<h4>Next</h4>
+<p>v04 relationship features (HR rise within 20 s of an EEG jump); Billeci and szdb adapters.</p>
+</article>
+
+<article class="part" style="--c:var(--emg)">
+<header><span class="av" style="background:var(--emg)">T</span><div><b>Tiffany</b><small>EMG + motion branch · what Model C adds</small></div></header>
+<h4>What exists in this branch</h4>
+<ul>
+<li><a href="evidence.html#v01">Model C vs A</a>: +11 points of sensitivity at 1 FA/day, F1 +0.064 [+0.023, +0.095], P(improve) = 0.998, better in all 5 folds — the gain is EMG and movement, not ECG.</li>
+<li>Exp R: muscle and movement arrive 8–12 s after the brain in convulsive seizures and peak at z ≈ 30–40; they also react in 59 % of "non-motor" seizures, late — movement after onset, not a motor sign.</li>
+<li>The dataset decision: three Kaggle "EMG seizure" sets were duplicates or synthetic; SeizeIT2 deltoid EMG is the only open training source.</li>
+</ul>
+<h4>30-second part</h4>
+<p>"Muscle and movement are the most specific signals we have: in convulsive seizures they go off the scale. Adding them to EEG and heart catches 11 points more seizures at the same false-alarm rate — that is the single biggest gain in the project."</p>
+<h4>Questions to own</h4>
+<p>Why the deltoid? Why not a wrist watch? What does the accelerometer see that EMG does not?</p>
+<h4>Next</h4>
+<p>The Arbune 2020 study (ictal EMG → post-ictal EEG suppression); the My Seizure Gauge external test.</p>
+</article>
+
+<article class="part" style="--c:var(--accent)">
+<header><span class="av" style="background:var(--accent)">C</span><div><b>Constance</b><small>Fusion, evaluation and honesty</small></div></header>
+<h4>What exists in this branch</h4>
+<ul>
+<li><a href="evidence.html#data">The three tiers</a>: 96 development patients in 5 folds, 29 locked, external sets — and why the SzCORE challenge's 80–90 % → 2–43 % drop is the thing to avoid.</li>
+<li><a href="evidence.html#negative">Dead ends and negative results</a>: H3 rewritten, the 70 % threshold rejected, the seed-dependent τ, the datasets not used, the metrics not reported.</li>
+<li>The accept rule (F1 +0.01, P ≥ 0.90, sensitivity −0.02, FA +0.5) and the version log that every change passes through.</li>
+<li>The ethics and limits: 40 % of non-motor seizures leave no trace; not a medical device.</li>
+</ul>
+<h4>30-second part</h4>
+<p>"Our first version catches 97 % of convulsive seizures at one false alarm a day and fails on short focal ones — and we can show you exactly which patients and why. Every number here comes from a patient we never trained on, under a rule we wrote before we looked."</p>
+<h4>Questions to own</h4>
+<p>Why not accuracy? What is a patient bootstrap? What happens if the locked test disagrees with the development set?</p>
+<h4>Next</h4>
+<p>v06 late fusion with modality dropout; the pre-registration document; the independent re-computation script.</p>
+</article>
+
+</div>
+<p class="source-note">The pipeline, experiments and this site were built by the coach with an AI coding assistant during the first sprint (17–18 Oct 2026); each member takes over, verifies and extends their branch from here, and presents only what they can explain. Attribution on this page is by responsibility, not by who typed first.</p>
+</div></section><section id="contribution-scope" class="research-section"><h2>Contributions & acknowledgments</h2><p>ICTRA brings signal acquisition, multimodal model comparison and patient-wise evaluation into a shared research workflow. It builds on established algorithms and public clinical datasets.</p><dl class="coverage-list"><div><dt>Student research</dt><dd>Helena: EEG and data loaders; Carina: ECG, timing and data audit; Tiffany: EMG and motion; Constance: evaluation, versioning and ethics. Detailed responsibilities are listed above.</dd></div><div><dt>Coaching and infrastructure</dt><dd>Allen Zhou: coaching, project leadership, technical review and the BioSignal Studio repository.</dd></div><div><dt>Research foundations</dt><dd>Public clinical datasets, established algorithms and published literature are documented in the <a href="evidence.html#references">references</a>. External photographs retain their <a href="evidence.html#image-credits">source credits and licenses</a>.</dd></div><div><dt>Website assistance</dt><dd>Website layout, editing and the explanatory illustrations were assisted by Codex and image generation. The diagrams explain the method; they are not experimental findings. <a href="evidence.html#ai-illustration-credits">Illustration provenance</a>.</dd></div></dl><p class="source-note">Research responsibilities are reproduced from the supplied project record.</p></section></div></div></main><footer class="site-footer"><div class="site-wrap"><div><b>ICTRA</b><p>WAICY 2026 · AI Showcase<br>Vancouver, Canada</p></div><div><a href="evidence.html#results">Results status</a><a href="evidence.html#references">References</a><a href="evidence.html#image-credits">Photography credits</a><a href="safety.html">Safety & limitations</a></div><p>Student research prototype. Not approved as a medical device; it must not replace prescribed monitoring or guide medication.</p></div></footer><script src="research.js"></script><script src="navigation.js"></script></body></html>
