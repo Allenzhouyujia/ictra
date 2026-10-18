@@ -1,0 +1,72 @@
+<!doctype html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Journey | ICTRA Research</title><meta name="description" content="How ICTRA went from a noisy home-built board and a public dataset toward a frozen model and a blind test, including the versions the rules rejected."><link rel="stylesheet" href="source.css"><link rel="stylesheet" href="research-layout.css?v=20261018d"><link rel="preload" href="assets/fonts/public-sans-regular.ttf" as="font" type="font/ttf" crossorigin><link rel="preload" href="assets/fonts/literata-regular.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="ictra-editorial.css?v=20261018-components2"><link rel="stylesheet" href="ui-components.css?v=20261018-components2"><link rel="stylesheet" href="site-entrance.css?v=20261018-entry2"><meta name="theme-color" content="#0d6c86"><style>
+.jy-part{margin-top:44px}
+.jy-timeline{list-style:none;margin:0;padding:0}
+.jy-step{display:grid;grid-template-columns:150px minmax(0,1fr);gap:28px;padding:30px 0;border-bottom:1px solid var(--line)}
+.jy-step:last-child{border-bottom:0}
+.jy-when{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);font-weight:600;padding-top:5px;line-height:1.5}
+.jy-body h2{font-size:1.35rem;margin-bottom:10px}
+.jy-body p{color:var(--ink-2);max-width:68ch;margin:0 0 12px}
+.jy-body a{font-size:13px;font-weight:600}
+.jy-now{background:var(--surface-2);border-left:4px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;padding:24px 26px;margin-top:8px}
+.jy-now h2{font-size:1.35rem;margin-bottom:10px}
+.jy-now p{color:var(--ink-2);max-width:68ch;margin:0 0 10px}
+.jy-next .jy-when{color:var(--ink-2)}
+.jy-close{margin-top:40px}
+.jy-sources{font-size:12px;color:var(--muted);margin-top:28px;max-width:75ch}
+@media(max-width:700px){.jy-step{grid-template-columns:1fr;gap:8px;padding:24px 0}.jy-now{padding:20px}}
+</style></head><body><script defer src="site-entrance.js?v=20261018-entry2"></script><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="site-wrap masthead"><a href="index.html" class="site-brand">ICTRA<span>Biosignal Research</span></a><a class="repo-link" href="https://github.com/Allenzhouyujia/ictra" target="_blank" rel="noopener">GitHub ↗</a><button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button></div><nav id="primary-nav" class="primary-nav" aria-label="Main navigation"><div class="site-wrap"><a href="index.html">Overview</a><a href="journey.html" aria-current="page">Journey</a><a href="background.html">Problem</a><a href="science.html">AI & Method</a><a href="system.html">Engineering</a><a href="evidence.html">Evidence</a><a href="safety.html">Ethics</a><a href="team.html">Team</a></div></nav></header><main id="main">
+
+<div class="site-wrap page-heading"><div class="breadcrumb"><a href="index.html">ICTRA</a> / Journey</div><span class="rubric-tag">Story · from first data to the frozen model</span><h1>How this project got here, and what happens next</h1><p>A noisy home-built board, a public clinical dataset, and a written record of every version we tried, including the ones the rules rejected.</p></div>
+
+<nav class="site-wrap journey-jump" aria-label="Project journey sections"><a href="#part1">What we did</a><a href="#part2">Now</a><a href="#part3">Next · planned</a></nav>
+<section class="site-wrap jy-part" aria-labelledby="part1">
+<div class="sec-head"><h2 id="part1">Part I · What we did</h2><p class="lead">Every step below has a number behind it and a link to where the evidence lives.</p></div>
+<ol class="jy-timeline">
+
+<li class="jy-step"><div class="jy-when">Before 17 Oct</div><div class="jy-body"><h2>A board, then a better dataset</h2><p>We built a 10-bit Arduino board that reads EEG, ECG, EMG and motion. It is noisy: 58–60 % of its samples sit at the converter's limits. It proves the idea can be wired and streamed, not that it detects seizures. Model results therefore come from SeizeIT2, a public clinical dataset of 125 patients, 11,626 hours and 883 seizures, recorded with behind-the-ear EEG and wired ECG, EMG and accelerometer.</p><a href="system.html#hardware">The hardware →</a></div></li>
+
+<li class="jy-step"><div class="jy-when">17 Oct</div><div class="jy-body"><h2>Fixing the data before trusting the model</h2><p>The first real files broke four assumptions. Sensor dropouts, where one or two samples are pulled to zero, became 50–200 µV spikes after filtering. Accelerometer scale differed between recordings, so every run is now calibrated to 1 g at rest. A training script could have silently removed ECG from Model B. And the false-alarm count included hours that should have been masked. All four were fixed before a single feature table was kept.</p></div></li>
+
+<li class="jy-step"><div class="jy-when">17 Oct</div><div class="jy-body"><h2>Measure the timing before building on it</h2><p>In a study of 695 development seizures, focal-to-bilateral tonic-clonic seizures showed the EEG change first, followed by heart rate, accelerometer and EMG (median lags of +3.5 to +12 s). Our first hypothesis, that EEG leads heart rate in most seizures, was not supported (41–56 % by group). We narrowed it into two testable hypotheses and wrote them into the pre-registration draft before any locked-test data were opened. A second study looked for pre-seizure drift in heart rate, HRV, EMG and movement. None of the 20 tests passed, so we claim detection, not prediction.</p><a href="science.html#ai">AI &amp; method →</a></div></li>
+
+<li class="jy-step"><div class="jy-when">17 Oct</div><div class="jy-body"><h2>The first model, and its first honest number</h2><p>Version 1 combined all four signals in one gradient-boosted model. It reached 0.44 sensitivity and an event F1 of 0.32 on development folds, and adding ECG, EMG and motion improved F1 by 0.064 over EEG alone (probability of improvement 0.998). Its false-alarm rate, however, was measured only on recordings that contain a seizure, which flattered it. We wrote that caveat into the results instead of hiding it.</p><a href="evidence.html#v01">Version 1 results →</a></div></li>
+
+<li class="jy-step"><div class="jy-when">17–18 Oct</div><div class="jy-body"><h2>The versions that failed</h2><p>Version 3 chose the alarm threshold by inner cross-validation. It halved false alarms, but sensitivity fell by six points, and the rule we wrote in advance rejects it: sensitivity may not drop by more than 0.02 for a gain in F1. The rejection is logged with its numbers. We then corrected the protocol. The realistic baseline is version 2 on all 8,642 development hours, and models are compared at fixed false-alarm budgets (1, 2, 5 and 10 per 24 hours) rather than at each model's own best threshold.</p><a href="evidence.html#evolution">The full version table →</a></div></li>
+
+<li class="jy-step"><div class="jy-when">18 Oct</div><div class="jy-body"><h2>Showing the record</h2><p>The website went live on 18 October with the full record: the rejected version, the caveats, and the plan for the test. The concept images are labelled as concept renders. They are not photographs of hardware or patients.</p><a href="evidence.html#results">Results status →</a></div></li>
+
+</ol>
+</section>
+
+<section class="site-wrap jy-part" aria-labelledby="part2">
+<div class="sec-head"><h2 id="part2">Part II · Now</h2></div>
+<div class="jy-now"><h2>18 October 2026</h2><p>Version 2 (all 8,642 development hours) is training. It should finish on 19 October. Version 3b, a re-run under the amended protocol, is queued behind it. The locked test (29 patients, sub-097 to sub-125) has not been opened.</p><p>Training runs on a laptop, so timings are estimates: it slows whenever the machine sleeps or a game is open.</p><p><a href="system.html#training-record">See the real training dashboard, with explanations →</a></p></div>
+</section>
+
+<section class="site-wrap jy-part" aria-labelledby="part3">
+<div class="sec-head"><h2 id="part3">Part III · Next (planned)</h2><p class="lead">Dates are targets. Each model change is one change, judged by the rule written before it runs.</p></div>
+<ol class="jy-timeline">
+
+<li class="jy-step jy-next"><div class="jy-when">19 Oct</div><div class="jy-body"><h2>Read version 2 at fixed budgets</h2><p>Compare version 2 and version 3b at 1, 2, 5 and 10 false alarms per 24 hours, then decide version 3b under the amended rule.</p></div></li>
+
+<li class="jy-step jy-next"><div class="jy-when">Late Oct</div><div class="jy-body"><h2>Next model changes, one at a time</h2><p>A 2-second window (v07), k-of-n voting to suppress isolated alarms (v08), relationship features taken from the timing study (v04), a causal version that only uses past samples, closer to real-time (v11), and an on-device export.</p></div></li>
+
+<li class="jy-step jy-next"><div class="jy-when">By 10 Nov</div><div class="jy-body"><h2>Hardware and live demonstration</h2><p>The team demonstrates the sensors and the pipeline live. The Arduino board is shown with its limits; the validation numbers come from SeizeIT2.</p></div></li>
+
+<li class="jy-step jy-next"><div class="jy-when">~14 Nov</div><div class="jy-body"><h2>Freeze</h2><p>No more model changes. The pre-registration is hashed and published, so anyone can check that the rules were fixed before the test.</p></div></li>
+
+<li class="jy-step jy-next"><div class="jy-when">After freeze</div><div class="jy-body"><h2>One look at the locked test</h2><p>The 29 locked patients are evaluated once. The result is recorded whatever it shows, including a result below the baseline.</p></div></li>
+
+<li class="jy-step jy-next"><div class="jy-when">After freeze</div><div class="jy-body"><h2>Blind third-party evaluation</h2><p>A submission to the SzCORE benchmark (Docker, scored by an independent team) and a request to the SeizeIT2 authors at KU Leuven for a hold-out evaluation. Each is submitted once, so the numbers cannot be re-tuned after they arrive.</p></div></li>
+
+<li class="jy-step jy-next"><div class="jy-when">By 29 Nov</div><div class="jy-body"><h2>Patent decision</h2><p>The method is already described publicly on this site, which limits some claims abroad. The decision is time-sensitive, and it depends on the freeze results.</p></div></li>
+
+</ol>
+</section>
+
+<section class="site-wrap jy-close" aria-label="The rule behind every step">
+<div class="callout"><b>The rule behind every step</b><p>Write the criterion down before the number arrives. The rejected versions stay in the record, because a project that only shows its successes cannot be checked.</p></div>
+<p class="jy-sources">Sources: project iteration log, plan and task list, and the repository history (17–18 October 2026). Figures are development-fold results unless stated; the locked test has not been opened.</p>
+</section>
+
+</main><footer class="site-footer"><div class="site-wrap"><div><b>ICTRA</b><p>WAICY 2026 · AI Showcase<br>Vancouver, Canada</p></div><div><a href="evidence.html#results">Results status</a><a href="evidence.html#references">References</a><a href="evidence.html#image-credits">Photography credits</a><a href="safety.html">Safety & limitations</a></div><p>Student research prototype. Not approved as a medical device; it must not replace prescribed monitoring or guide medication.</p></div></footer><script src="navigation.js?v=20261018-components2"></script><script src="ui-components.js?v=20261018-components2"></script></body></html>

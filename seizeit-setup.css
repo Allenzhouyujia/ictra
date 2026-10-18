@@ -1,0 +1,43 @@
+/* Original source imagery stays intact; explanations are responsive HTML. */
+.seizeit-setup{grid-column:1/-1;padding:32px 0 36px;margin:12px 0 28px;border-block:1px solid var(--line);scroll-margin-top:12px}
+.seizeit-setup>h3{font:400 clamp(26px,3vw,36px)/1.25 var(--display);letter-spacing:-.025em;margin:0 0 16px}
+.seizeit-intro{font-size:16px;line-height:1.8;color:var(--ink-2);margin:0 0 30px;max-width:68ch}
+.seizeit-intro strong{font-weight:600;color:var(--ink)}
+.seizeit-media{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:36px;align-items:start}
+.seizeit-media figure{margin:0;padding:0;border:0;background:none;border-radius:0;box-shadow:none;overflow:visible;min-width:0}
+.seizeit-media .seizeit-source-photo{padding:24px 20px 0;background:#f0f4f3}
+.seizeit-source-link{padding:24px;background:var(--surface-2)}
+.seizeit-source-link h4{font:600 18px/1.5 var(--body);margin:0 0 12px}
+.seizeit-source-link p{font-size:14px;line-height:1.8;margin:0 0 16px}
+.seizeit-source-link>a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;font-weight:600}
+.seizeit-source-link .source-note{font-size:12px;margin:16px 0 0;padding-top:16px}
+.seizeit-media img{display:block;width:100%;height:auto;object-fit:contain}
+.seizeit-media .seizeit-source-photo img{background:transparent}
+.seizeit-media .seizeit-source-diagram img{background:#fff}
+.seizeit-media .seizeit-source-photo figcaption{padding:18px 0 22px}
+.seizeit-media figcaption{font:13px/1.8 var(--body);color:var(--ink-2);margin:16px 0 0;max-width:none}
+.seizeit-media figcaption strong{display:block;font-size:15px;color:var(--ink);margin-bottom:8px}
+.seizeit-media figcaption a{font:inherit}
+.seizeit-units{margin:24px 0 0}
+.seizeit-units>div{padding:18px 0;border-top:1px solid var(--line)}
+.seizeit-units dt{font:600 16px/1.5 var(--body);color:var(--ink)}
+.seizeit-units dd{font-size:14px;line-height:1.8;color:var(--ink-2);margin:8px 0 0}
+.seizeit-units .signal-name{display:inline-block;font-size:11px;line-height:1.5;font-weight:600;letter-spacing:.035em;margin-bottom:6px}
+.seizeit-units .signal-name.eeg{color:var(--eeg)}
+.seizeit-units .signal-name.ecg{color:var(--ecg)}
+.seizeit-units .signal-name.acc{color:var(--acc)}
+.seizeit-context{max-width:none;font-size:13px;line-height:1.8;color:var(--ink-2);margin:28px 0 0;padding:20px 24px;background:var(--surface-2)}
+.seizeit-context strong{color:var(--ink)}
+.seizeit-notes{font-size:13px;line-height:1.8;color:var(--ink-2);margin-top:18px}
+.seizeit-notes summary{cursor:pointer;color:var(--accent);font-weight:600;padding:12px 0;min-height:44px}
+.seizeit-notes p{margin:12px 0}
+@media(max-width:720px){
+  .seizeit-media{grid-template-columns:1fr;gap:32px}
+  .seizeit-setup{padding-block:26px;scroll-margin-top:12px}
+  .seizeit-setup>h3{font-size:28px}
+  .seizeit-intro{font-size:15px}
+  .seizeit-media .seizeit-source-photo{padding:20px 16px 0}
+  .seizeit-media figcaption{font-size:13px}
+  .seizeit-context{padding:18px}
+  #hardware .scroll-x table{min-width:640px}
+}
