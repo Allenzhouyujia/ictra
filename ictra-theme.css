@@ -166,3 +166,153 @@ table{font-variant-numeric:tabular-nums}
 .expr-exhibit h3{font-family:var(--display);font-size:1.35rem}
 .hbar{margin:10px 0}
 img{max-width:100%;height:auto}
+
+/* --- concept renders (18 Oct) --- */
+.hero-photo{margin:0;position:relative}
+.hero-photo img{display:block;width:100%;height:auto;border-radius:18px;box-shadow:0 18px 50px -24px rgba(13,37,44,.45)}
+.hero-photo figcaption{margin-top:10px;font-size:12.5px;line-height:1.5;color:var(--muted)}
+.render-tag{display:inline-block;padding:1px 8px;border-radius:999px;background:#eef3f5;color:#0d5468;font:600 11px/1.6 var(--sans,Inter,sans-serif);letter-spacing:.03em;text-transform:uppercase;vertical-align:middle;margin-right:6px}
+.signal-band{padding-block:8px 40px}
+.signal-band .signal-panel{max-width:960px;margin:0 auto}
+.hero-grid .hero-photo{background:none;border:0;padding:0;border-radius:0;box-shadow:none}
+
+/* Editorial media layout. Concept scenes, component references and screenshots
+   have separate compositions; none inherits the old four-column .shots grid. */
+:root{--muted:#586a78;--media-gap:32px;--section-space:56px}
+html{scroll-padding-top:128px}
+.site-wrap,.wrap{width:min(1320px,calc(100% - 80px))}
+.document-layout{grid-template-columns:176px minmax(0,1fr);gap:48px;padding-top:28px}
+.document-content,.document-content .wrap{min-width:0}
+.contents{top:132px}
+.contents nav{position:static}
+.contents a{padding-block:9px;line-height:1.5}
+.contents a[aria-current="location"]{color:var(--accent);border-left-color:var(--accent);font-weight:600;background:var(--accent-soft)}
+.page-heading{padding-block:36px 24px}
+.page-heading h1{font-size:clamp(2rem,3.2vw,2.75rem);margin-block:12px}
+.page-heading p{margin-bottom:0}
+.page-brief{padding:24px 28px;border:1px solid var(--line);border-radius:4px;margin-bottom:32px}
+.page-brief p:last-child{margin-bottom:0}
+.research-section{padding-block:32px var(--section-space);margin-bottom:0;border-top:0;border-bottom:1px solid var(--line);scroll-margin-top:16px}
+.research-section + .research-section{padding-top:var(--section-space)}
+.sec-head{margin-bottom:28px}
+.sec-head h2{margin-bottom:12px}
+.sec-head .lead{margin-bottom:0}
+
+/* A single scene is a broad image with a deliberate caption column. */
+.context-photo{
+  display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);
+  align-items:center;gap:var(--media-gap);width:100%;min-width:0;
+  margin:0 0 32px;padding:0 0 28px;background:transparent;
+  border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;
+}
+.context-photo>img{display:block;width:100%;height:auto;max-height:none;object-fit:contain;border-radius:4px}
+.context-photo figcaption{min-width:0;padding:0;margin:0;font:14px/1.75 var(--body);color:var(--ink-2);background:none;border:0}
+.context-photo strong{display:block;margin:0 0 14px;font:500 clamp(1.25rem,1.7vw,1.65rem)/1.25 var(--display);color:var(--ink)}
+.context-photo .render-tag,.hero-photo .render-tag{
+  display:table;margin:0 0 10px;padding:0;background:none;border-radius:0;
+  font:650 11px/1.5 var(--body);letter-spacing:.08em;color:var(--accent);white-space:nowrap;
+}
+/* Two concepts are an image-led diptych, never two nested split cards. */
+.shots:has(>.context-photo){grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin:0 0 32px;align-items:start}
+.shots>.context-photo{display:block;margin:0;padding:0;border:0}
+.shots>.context-photo>img{width:100%;height:auto;aspect-ratio:3/2;object-fit:contain}
+.shots>.context-photo figcaption{padding:20px 0 0;max-width:52ch}
+.shots>.context-photo:only-child{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:var(--media-gap);align-items:center;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.shots>.context-photo:only-child figcaption{padding:0;max-width:none}
+
+/* Problem opener: the introduction and its scene form one opening spread. */
+@media(min-width:1050px){
+  .document-content:has(>section[aria-label="Opening scene"]){display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);column-gap:36px;align-items:start}
+  .document-content:has(>section[aria-label="Opening scene"])>.page-brief{grid-column:1;grid-row:1;align-self:center;background:none;border:0;padding:0;margin:0 0 32px}
+  .document-content:has(>section[aria-label="Opening scene"])>.page-brief h2{font-size:clamp(1.5rem,2vw,1.95rem);line-height:1.22}
+  .document-content:has(>section[aria-label="Opening scene"])>.page-brief p{font-size:15px;line-height:1.8}
+  .document-content:has(>section[aria-label="Opening scene"])>.research-section{grid-column:1/-1}
+  .document-content>section[aria-label="Opening scene"]{grid-column:2!important;grid-row:1;padding:0 0 40px;border:0}
+  section[aria-label="Opening scene"] .context-photo{display:block;margin:0;padding:0;border:0}
+  section[aria-label="Opening scene"] .context-photo figcaption{padding-top:16px;font-size:13px}
+  section[aria-label="Opening scene"] .context-photo strong{font:600 15px/1.4 var(--body);margin-bottom:8px}
+  section[aria-label="Opening scene"] .context-photo .render-tag{display:inline-block;margin:0 8px 0 0}
+  .document-content:has(>section[aria-label="Opening scene"])>#numbers{border-top:1px solid var(--line)}
+}
+
+/* Documentary material keeps its full content visible and captions readable. */
+.shots:not(:has(>.context-photo)){grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:start}
+.shots figure.photo{border:0;border-radius:0;box-shadow:none;background:none;overflow:visible}
+.shots figure.photo img{width:100%;height:380px;object-fit:contain;object-position:top;background:var(--surface-2);border-radius:4px}
+.shots figure.photo figcaption{padding:16px 0 0;border:0;background:none;font-size:13px;line-height:1.75}
+#hardware figure.photo{max-width:none;width:100%;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);align-items:center;gap:32px;padding:24px;background:var(--surface-2);border:0;border-radius:4px;box-shadow:none}
+#hardware figure.photo img{width:100%;height:300px;max-height:none;object-fit:contain;background:transparent}
+#hardware figure.photo figcaption{padding:0;border:0;background:none;font-size:13px;line-height:1.75}
+.photo-pair{gap:32px}
+.photo-pair .research-photo img{height:280px;object-fit:contain;background:var(--surface-2);border-radius:4px}
+.research-photo figcaption{padding-top:16px}
+.training-illustration{border-radius:4px;box-shadow:none}
+.training-illustration figcaption{font-size:13px;line-height:1.7}
+.news-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.news-card{padding:0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:none}
+.news-card>a{display:block;background:var(--surface-2)}
+.news-card img{height:auto;aspect-ratio:800/608;object-fit:contain;border:1px solid var(--line);border-radius:4px}
+.news-card figcaption{padding:18px 0 24px;font-size:14px;line-height:1.65}
+.news-card figcaption b{font-size:16px;line-height:1.45}
+.news-card figcaption span{font-size:12px;margin-block:8px}
+.gap-grid{gap:24px}
+.gap-grid article{padding:20px 22px;border:0;border-radius:4px}
+.bg-stats{gap:20px}
+.bg-stat{padding:20px;border-radius:4px}
+.bg-stat small{font-size:12px;line-height:1.5;padding-top:8px}
+
+/* The original, uncropped hero is paired with the existing copy and waves. */
+.hero{padding-block:44px 32px}
+.hero-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(2rem,3.25vw,3.25rem);line-height:1.14;text-wrap:balance}
+.hero .lede{font-size:17px;line-height:1.65;max-width:48ch;margin-bottom:24px}
+.hero-photo img{width:100%;height:auto;border-radius:4px;box-shadow:none}
+.hero-photo figcaption{margin-top:16px;font-size:13px;line-height:1.65;color:var(--ink-2)}
+.hero-status{font-size:13px;max-width:54ch;line-height:1.6}
+.signal-band .signal-panel{max-width:none}
+
+@media(max-width:1100px){
+  .site-wrap,.wrap{width:calc(100% - 48px)}
+  .document-layout{grid-template-columns:150px minmax(0,1fr);gap:28px}
+  .context-photo,.shots>.context-photo:only-child{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px}
+  .hero-grid{gap:32px}
+  .hero-actions{gap:8px}
+  .hero-actions .btn{padding:11px 13px;font-size:13px}
+}
+@media(max-width:900px){
+  .document-layout{grid-template-columns:1fr;gap:0}
+  .hero-grid{grid-template-columns:1fr;gap:28px}
+  .hero-photo{max-width:760px}
+  .hero .lede{max-width:65ch}
+  .shots figure.photo img{height:340px}
+}
+@media(max-width:640px){
+  :root{--media-gap:20px;--section-space:36px}
+  .site-wrap,.wrap{width:calc(100% - 32px)}
+  .page-heading{padding-block:24px 20px}
+  .page-brief{padding:20px;margin-bottom:24px}
+  .context-photo,.shots>.context-photo:only-child{display:block}
+  .context-photo figcaption,.shots>.context-photo:only-child figcaption{padding-top:16px}
+  .shots:has(>.context-photo),.shots:not(:has(>.context-photo)),.news-grid,.photo-pair{grid-template-columns:1fr;gap:28px}
+  .shots>.context-photo:only-child{padding-bottom:24px}
+  #hardware figure.photo{display:block;padding:16px}
+  #hardware figure.photo img{height:auto;max-height:320px}
+  #hardware figure.photo figcaption{padding-top:16px}
+  .shots figure.photo img{height:auto;max-height:560px}
+  .photo-pair .research-photo img{height:auto;max-height:300px}
+  .hero{padding-block:28px}
+  .hero .lede{font-size:16px}
+  .hero-actions .btn{min-height:44px}
+  .news-card img{aspect-ratio:auto}
+}
+
+/* Entry animation: plays once per browser, then the homepage is shown directly. */
+.intro-overlay{position:fixed;inset:0;z-index:999;display:grid;place-items:center;background:#f4f3f1;transition:opacity .7s ease}
+.intro-overlay.is-leaving{opacity:0;pointer-events:none}
+.intro-video{width:min(100%,1100px);height:auto;max-height:100vh;object-fit:contain}
+.intro-tag{position:absolute;left:max(20px,env(safe-area-inset-left,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));margin:0;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8a8780}
+.intro-skip{position:absolute;right:max(20px,env(safe-area-inset-right,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));background:transparent;border:1px solid #c9c6c0;color:#5a5852;font:500 12px/1 var(--body);letter-spacing:.04em;padding:11px 20px;border-radius:999px;cursor:pointer}
+.intro-skip:hover{background:#fff;border-color:#8a8780}
+.intro-skip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+body.intro-open{overflow:hidden}
+@media (prefers-reduced-motion:reduce){.intro-overlay{display:none}}

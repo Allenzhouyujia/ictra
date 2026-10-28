@@ -33,6 +33,14 @@
 
 <li class="jy-step"><div class="jy-when">17–18 Oct</div><div class="jy-body"><h2>The versions that failed</h2><p>Version 3 chose the alarm threshold by inner cross-validation. It halved false alarms, but sensitivity fell by six points, and the rule we wrote in advance rejects it: sensitivity may not drop by more than 0.02 for a gain in F1. The rejection is logged with its numbers. We then corrected the protocol. The realistic baseline is version 2 on all 8,642 development hours, and models are compared at fixed false-alarm budgets (1, 2, 5 and 10 per 24 hours) rather than at each model's own best threshold.</p><a href="evidence.html#evolution">The full version table →</a></div></li>
 
+<li class="jy-step"><div class="jy-when">19–21 Oct</div><div class="jy-body"><h2>A defect, not an improvement</h2><p>The diagnostic behind the second rejection found that the alarm threshold was being pinned by the search grid rather than chosen from the data: candidates were spaced evenly by percentile, which near the top means enormous jumps in alarm rate, and every run in every version since the first had landed on the same candidate. Spacing the candidates by alarm rate fixed it. Because it is a defect correction and not a claimed improvement, it reset the baseline rather than counting as a win: v02g, 27 % of seizures at 1.3 false alarms a day. <a href="evidence.html#evolution">Version record →</a></p></div></li>
+
+<li class="jy-step"><div class="jy-when">21–22 Oct</div><div class="jy-body"><h2>Making it honest about time</h2><p>Until then the pipeline filtered each recording as a whole, which means every alarm had quietly seen the future. The causal version (v11) only ever looks backwards: forward-only filtering, a rolling calibration, our own R-peak detector, and the alarm timestamped at the end of its window rather than the start — which also revealed that our published delays had been about four seconds early. The honest delay is about 35 seconds. The cost of the change, on development data, was 0.011 event F1, an interval that includes zero.</p></div></li>
+
+<li class="jy-step"><div class="jy-when">26 Oct</div><div class="jy-body"><h2>Freeze, and a hash</h2><p>Two model lineages, their thresholds, the feature code and the analysis script were frozen and hashed — 26 files, each with its SHA-256 recorded. The pre-registration, written before any locked recording was downloaded, says what would be tested, how it would be judged and what would count as a failure. Nothing was changed afterwards. <a href="evidence.html#prereg">The pre-registration, and what its timestamp proves →</a></p></div></li>
+
+<li class="jy-step"><div class="jy-when">28 Oct</div><div class="jy-body"><h2>One look</h2><p>The 29 locked patients were downloaded, their 778 annotation files hashed on arrival, the features extracted, and the analysis run once — twelve seconds after the repository was pushed to GitHub. It cannot be run again. <a href="evidence.html#locked">What it found →</a></p></div></li>
+
 <li class="jy-step"><div class="jy-when">18 Oct</div><div class="jy-body"><h2>Showing the record</h2><p>The website went live on 18 October with the full record: the rejected version, the caveats, and the plan for the test. The concept images are labelled as concept renders. They are not photographs of hardware or patients.</p><a href="evidence.html#results">Results status →</a></div></li>
 
 </ol>
@@ -40,24 +48,16 @@
 
 <section class="site-wrap jy-part" aria-labelledby="part2">
 <div class="sec-head"><h2 id="part2">Part II · Now</h2></div>
-<div class="jy-now"><h2>18 October 2026</h2><p>Version 2 (all 8,642 development hours) is training. It should finish on 19 October. Version 3b, a re-run under the amended protocol, is queued behind it. The locked test (29 patients, sub-097 to sub-125) has not been opened.</p><p>Training runs on a laptop, so timings are estimates: it slows whenever the machine sleeps or a game is open.</p><p><a href="system.html#training-record">See the real training dashboard, with explanations →</a></p></div>
+<div class="jy-now"><h2>28 October 2026</h2><p>The locked test is spent. On 29 patients no model had ever seen, the four-signal model caught a third of the average patient’s seizures at 0.23 false alarms a day, and 77 % of convulsive ones. The project’s primary hypothesis — that four signals beat EEG alone at the same sensitivity — held on every bootstrap sample. So did the claim that a learned model beats any single-signal rule.</p><p>Two things did not go our way, and both are on the evidence page. The hypothesis that heart rate would help most on seizures without movement came out in the right direction but short of the bar we set: probability of improvement 0.881, where our rule asked for 0.90. And a finding of our own — measured on development data, and the reason EEG sits at the centre of the design — did not replicate: on the locked patients heart rate moved <em>first</em>, at the median, not the brain.</p><p>Sensitivity also fell, from 0.402 on development patients to 0.331 here. We cannot call that purely a generalization gap, because the two numbers come from different procedures, and we have said so rather than letting the better-looking F1 stand on its own.</p><p>What is left to test is now outside this dataset entirely.</p><p class="jy-now-links"><a href="evidence.html#locked">The locked-test results →</a></p></div>
 </section>
 
 <section class="site-wrap jy-part" aria-labelledby="part3">
 <div class="sec-head"><h2 id="part3">Part III · Next (planned)</h2><p class="lead">Dates are targets. Each model change is one change, judged by the rule written before it runs.</p></div>
 <ol class="jy-timeline">
 
-<li class="jy-step jy-next"><div class="jy-when">19 Oct</div><div class="jy-body"><h2>Read version 2 at fixed budgets</h2><p>Compare version 2 and version 3b at 1, 2, 5 and 10 false alarms per 24 hours, then decide version 3b under the amended rule.</p></div></li>
-
-<li class="jy-step jy-next"><div class="jy-when">Late Oct</div><div class="jy-body"><h2>Next model changes, one at a time</h2><p>A 2-second window (v07), k-of-n voting to suppress isolated alarms (v08), relationship features taken from the timing study (v04), a causal version that only uses past samples, closer to real-time (v11), and an on-device export.</p></div></li>
-
 <li class="jy-step jy-next"><div class="jy-when">By 10 Nov</div><div class="jy-body"><h2>Hardware and live demonstration</h2><p>The team demonstrates the sensors and the pipeline live. The Arduino board is shown with its limits; the validation numbers come from SeizeIT2.</p></div></li>
 
-<li class="jy-step jy-next"><div class="jy-when">~14 Nov</div><div class="jy-body"><h2>Freeze</h2><p>No more model changes. The pre-registration is hashed and published, so anyone can check that the rules were fixed before the test.</p></div></li>
-
-<li class="jy-step jy-next"><div class="jy-when">After freeze</div><div class="jy-body"><h2>One look at the locked test</h2><p>The 29 locked patients are evaluated once. The result is recorded whatever it shows, including a result below the baseline.</p></div></li>
-
-<li class="jy-step jy-next"><div class="jy-when">After freeze</div><div class="jy-body"><h2>Blind third-party evaluation</h2><p>A submission to the SzCORE benchmark (Docker, scored by an independent team) and a request to the SeizeIT2 authors at KU Leuven for a hold-out evaluation. Each is submitted once, so the numbers cannot be re-tuned after they arrive.</p></div></li>
+<li class="jy-step jy-next"><div class="jy-when">November</div><div class="jy-body"><h2>Blind third-party evaluation</h2><p>A request to the SeizeIT2 authors at KU Leuven to run the frozen model on data we have never had access to, and a Docker submission of the EEG-only model to the SzCORE benchmark, scored by an independent team. SzCORE accepts only 19-channel scalp EEG, so that second one is a transfer test of one model, not of the four-signal system, and we will report it as one. Each is submitted once, so the numbers cannot be re-tuned after they arrive. With the locked set spent, these are the only untouched tests the project still has.</p></div></li>
 
 <li class="jy-step jy-next"><div class="jy-when">By 29 Nov</div><div class="jy-body"><h2>Patent decision</h2><p>The method is already described publicly on this site, which limits some claims abroad. The decision is time-sensitive, and it depends on the freeze results.</p></div></li>
 
@@ -66,7 +66,7 @@
 
 <section class="site-wrap jy-close" aria-label="The rule behind every step">
 <div class="callout"><b>The rule behind every step</b><p>Write the criterion down before the number arrives. The rejected versions stay in the record, because a project that only shows its successes cannot be checked.</p></div>
-<p class="jy-sources">Sources: project iteration log, plan and task list, and the repository history (17–18 October 2026). Figures are development-fold results unless stated; the locked test has not been opened.</p>
+<p class="jy-sources">Sources: project iteration log, plan and task list, and the repository history (17–28 October 2026). Figures are development-fold results unless marked as locked-test results.</p>
 </section>
 
 </main><footer class="site-footer"><div class="site-wrap"><div><b>ICTRA</b><p>WAICY 2026 · AI Showcase<br>Vancouver, Canada</p></div><div><a href="evidence.html#results">Results status</a><a href="evidence.html#references">References</a><a href="evidence.html#image-credits">Photography credits</a><a href="safety.html">Safety & limitations</a></div><p>Student research prototype. Not approved as a medical device; it must not replace prescribed monitoring or guide medication.</p></div></footer><script src="navigation.js?v=20261018-components2"></script><script src="ui-components.js?v=20261018-components2"></script></body></html>

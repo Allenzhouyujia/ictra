@@ -253,6 +253,10 @@ table{font-size:13px;line-height:1.7}
 th{font:600 11px/1.6 var(--body);letter-spacing:.025em;background:var(--surface-2);color:var(--ink-2)}
 td{line-height:1.7;padding-block:13px}
 .results-table th,.results-table td{padding-block:11px}
+.results-table.prose-table{min-width:0}
+.results-table.prose-table th,.results-table.prose-table td{white-space:normal;vertical-align:top}
+.results-table.prose-table td:first-child,.results-table.prose-table th:first-child{width:42%}
+@media (max-width:640px){.results-table.prose-table td:first-child,.results-table.prose-table th:first-child{width:auto}}
 .scroll-x,.table-wrap{scrollbar-color:#aabdb6 var(--surface-2);scrollbar-width:thin}
 .table-scroll-hint{margin:14px 0 8px;font-size:12px;line-height:1.7;color:var(--muted)}
 .table-scroll-hint[hidden]{display:none}

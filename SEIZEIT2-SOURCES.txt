@@ -1,0 +1,22 @@
+SeizeIT2 equipment section update - 18 October 2026
+
+Entry: system.html#electrode-sites
+Styles: seizeit-setup.css
+Provenance: assets/web/seizeit2-source-manifest.json
+
+Uses an unmodified manufacturer neck-setup photograph and the complete original
+Figure 1 from Swinnen et al. (2026), doi:10.1002/epi4.70260.
+No image generation, invented anatomy, redrawn electrodes or modified devices.
+The source photograph is a product example, not asserted to be a study participant.
+The study configuration uses TWO Sensor Dot devices, not three.
+
+The paper figure is CC BY-NC-ND 4.0: retain attribution, noncommercial use,
+and the unchanged figure. The manufacturer photograph has no explicit open
+redistribution license on its source page. Confirm rights-holder permission
+before public republication. Full source links and limitations are on Evidence.
+
+Previous local schematics and generated alternatives remain as unused files;
+they must not be used as authoritative device or electrode-placement references.
+Changes were applied directly to the current site to preserve later user edits.
+The older work/rebuild_site.py script predates the current seven-page site and
+must not be run over this deliverable without first reconciling those changes.
