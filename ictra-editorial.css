@@ -527,3 +527,24 @@ div.lab-records{margin-top:54px;padding-top:38px;border-top:1px solid var(--line
 .av.av-photo{color:transparent;font-size:0;background-repeat:no-repeat}
 .member .av.av-photo{display:block;width:96px;height:96px;border-radius:2px;margin-bottom:16px}
 .member .affil{display:block;font:500 12px/1.6 var(--body);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:-6px 0 12px}
+
+/* Larger contributor portraits with the biography alongside. */
+.member:has(> .av-photo){display:grid;grid-template-columns:180px minmax(0,1fr);gap:24px;align-items:start}
+.member .av.av-photo{width:180px;height:210px;margin:0;background-position:center top!important}
+.member-copy{min-width:0}
+.member-copy b{margin-top:0}
+.member-copy .affil{margin-top:0}
+@media(min-width:701px) and (max-width:1150px){
+  .team{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .member:has(> .av-photo){grid-template-columns:120px minmax(0,1fr);gap:20px}
+  .member .av.av-photo{width:120px;height:150px}
+  .member-copy b{font-size:28px;margin-bottom:10px}
+  .member-copy span{font-size:14px;line-height:1.7}
+  .member-copy .affil{font-size:11px}
+}
+@media(max-width:380px){
+  .member:has(> .av-photo){grid-template-columns:96px minmax(0,1fr);gap:16px}
+  .member .av.av-photo{width:96px;height:128px}
+}
