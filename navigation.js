@@ -1,4 +1,46 @@
 // Keep the long-page index aligned with the section being read.
+// Detailed diagrams retain readable labels instead of shrinking on a phone.
+(() => {
+  const diagrams = [...document.querySelectorAll('figure > svg, .hbar > svg')];
+  const regions = diagrams.map((svg, index) => {
+    const width = svg.viewBox.baseVal.width;
+    if (width < 500) return null;
+    const region = document.createElement('div');
+    region.className = 'diagram-scroll';
+    region.style.setProperty('--diagram-width', `${Math.min(width, 760)}px`);
+    region.setAttribute('role', 'region');
+    region.setAttribute('aria-label', svg.getAttribute('aria-label') || 'Research diagram');
+    const hint = document.createElement('p');
+    hint.className = 'diagram-scroll-hint';
+    hint.id = `diagram-scroll-hint-${index + 1}`;
+    hint.hidden = true;
+    hint.textContent = 'Scroll sideways to read the full diagram. Keyboard: focus the diagram and use the arrow keys.';
+    svg.before(hint, region);
+    region.append(svg);
+    return { region, hint };
+  }).filter(Boolean);
+  const update = () => regions.forEach(({ region, hint }) => {
+    const overflows = region.clientWidth > 0 && region.scrollWidth > region.clientWidth + 1;
+    hint.hidden = !overflows;
+    if (overflows) {
+      region.tabIndex = 0;
+      region.setAttribute('aria-describedby', hint.id);
+    } else {
+      region.removeAttribute('tabindex');
+      region.removeAttribute('aria-describedby');
+    }
+  });
+  window.addEventListener('resize', update, { passive: true });
+  window.addEventListener('load', update);
+  document.addEventListener('toggle', update, true);
+  document.fonts?.ready.then(update);
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(update);
+    regions.forEach(({ region }) => observer.observe(region));
+  }
+  update();
+})();
+
 const sectionLinks = [...document.querySelectorAll('.contents a[href^="#"]')];
 const indexedSections = sectionLinks.map(link => ({
   link,

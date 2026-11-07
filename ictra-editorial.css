@@ -136,7 +136,7 @@ figure.photo img{border-radius:2px}
 .training-illustration{margin-bottom:32px;border:1px solid var(--line);border-radius:2px;overflow:hidden;background:var(--surface)}
 .training-illustration img{width:100%;height:auto}
 .training-illustration figcaption{margin:0;padding:18px 22px;border-top:1px solid var(--line);background:var(--surface-2);font:13px/1.8 var(--body)}
-.document-content figure:has(>svg){padding:24px;background:var(--surface);border:1px solid var(--line)}
+.document-content figure:has(>svg,>.diagram-scroll){padding:24px;background:var(--surface);border:1px solid var(--line)}
 .document-content figure>svg{width:100%;height:auto}
 .image-link{cursor:zoom-in}
 
@@ -426,7 +426,7 @@ td{line-height:1.7;padding-block:13px}
   #hardware figure.photo img{height:auto;max-height:300px}
   #hardware figure.photo figcaption{padding-top:18px}
   .training-illustration figcaption{padding:16px}
-  .document-content figure:has(>svg){padding:12px}
+  .document-content figure:has(>svg,>.diagram-scroll){padding:12px}
   .bg-stats{grid-template-columns:1fr;gap:0}
   .bg-stat b{font-size:28px}.bg-stat span{font-size:13px}
   .bg-stat small{font-size:11px}
@@ -547,4 +547,27 @@ div.lab-records{margin-top:54px;padding-top:38px;border-top:1px solid var(--line
 @media(max-width:380px){
   .member:has(> .av-photo){grid-template-columns:96px minmax(0,1fr);gap:16px}
   .member .av.av-photo{width:96px;height:auto}
+}
+
+/* Keep milestone connectors outside the labels, with readable mobile text. */
+.milestone-roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin:12px 0 24px;padding:0;list-style:none}
+.milestone-roadmap>li{position:relative;min-width:0;margin:0;padding:0}
+.milestone-roadmap>li:not(:last-child)::after{content:"";position:absolute;top:32px;left:100%;width:28px;height:1px;background:var(--axis)}
+.milestone-roadmap h3{display:flex;align-items:center;justify-content:center;min-height:64px;margin:0 0 18px;padding:12px;font-size:14px;line-height:1.5;text-align:center;background:var(--surface-2);border:1px solid var(--axis);border-radius:6px}
+.milestone-roadmap>li:first-child h3{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.milestone-roadmap ul{margin:0;padding:0;list-style:none;font-size:14px;line-height:1.75;color:var(--ink-2)}
+.milestone-roadmap ul li{margin:0 0 6px;padding:0}
+.diagram-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-color:var(--axis) var(--surface-2);scrollbar-width:thin}
+.diagram-scroll>svg{display:block;width:100%;min-width:var(--diagram-width);height:auto}
+.diagram-scroll-hint{margin:0 0 12px;font-size:12px;line-height:1.7;color:var(--muted)}
+.diagram-scroll-hint[hidden]{display:none}
+@media(max-width:1150px){
+ .milestone-roadmap{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:28px}
+ .milestone-roadmap>li:nth-child(2)::after{display:none}
+}
+@media(max-width:600px){
+ .milestone-roadmap{grid-template-columns:1fr;gap:24px}
+ .milestone-roadmap>li::after{display:none}
+ .milestone-roadmap h3{justify-content:flex-start;min-height:48px;margin-bottom:12px;padding:10px 14px;font-size:15px;text-align:left}
+ .milestone-roadmap ul{font-size:14px}
 }
